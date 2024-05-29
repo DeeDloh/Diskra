@@ -1,13 +1,13 @@
 import sys
-from PyQt5.QtWidgets import (QApplication, QMainWindow, QTableWidget, QTableWidgetItem,
+from PyQt5.QtWidgets import (QApplication, QDialog, QTableWidget, QTableWidgetItem,
                              QVBoxLayout, QWidget, QPushButton, QSpinBox, QHBoxLayout, QLabel)
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import Qt
 
 
-class AdjacencyMatrixInput(QMainWindow):
-    def __init__(self):
-        super().__init__()
+class AdjMatrixInput(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         self.setWindowTitle("Adjacency Matrix Input")
         self.setGeometry(100, 100, 800, 600)
@@ -28,13 +28,15 @@ class AdjacencyMatrixInput(QMainWindow):
         self.layout.addLayout(size_layout)
         self.layout.addWidget(self.table_widget)
 
-        self.submit_button = QPushButton("Submit Matrix", self)
+        self.submit_button = QPushButton("Ввод", self)
         self.submit_button.clicked.connect(self.submit_matrix)
         self.layout.addWidget(self.submit_button)
 
-        container = QWidget()
-        container.setLayout(self.layout)
-        self.setCentralWidget(container)
+        self.close_button = QPushButton("Закрыть", self)
+        self.close_button.clicked.connect(self.close)
+        self.layout.addWidget(self.close_button)
+
+        self.setLayout(self.layout)
 
         self.update_table_size()
 
@@ -74,13 +76,16 @@ class AdjacencyMatrixInput(QMainWindow):
                     matrix_row.append(0)
             matrix.append(matrix_row)
 
-        print("Adjacency Matrix:")
-        for row in matrix:
-            print(row)
+        # print("Adjacency Matrix:")
+        # for row in matrix:
+        #    print(row)
+
+        self.data = matrix
+        self.accept()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = AdjacencyMatrixInput()
+    window = AdjMatrixInput()
     window.show()
     sys.exit(app.exec_())
