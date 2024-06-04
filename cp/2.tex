@@ -1,0 +1,96 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[russian]{babel}
+\usepackage{tikz}
+
+\title{Вторая задача}
+\author{Векнков К. С. -- М8О-105Б-23 -- 7 вариант}
+\date{Май, 2024}
+
+\begin{document}
+
+\maketitle
+\section*{Условие}
+Используя алгоритм Терри, определить замкнутый маршрут, проходящий ровно по два раза
+(по одному в каждом направлении) через каждое ребро графа.
+
+
+\section*{Решение}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp7608240961395019] 
+\draw   (49,45.17) .. controls (49,36.79) and (55.79,30) .. (64.17,30) .. controls (72.54,30) and (79.33,36.79) .. (79.33,45.17) .. controls (79.33,53.54) and (72.54,60.33) .. (64.17,60.33) .. controls (55.79,60.33) and (49,53.54) .. (49,45.17) -- cycle ;
+%Shape: Circle [id:dp47920334153126887] 
+\draw   (260,46.17) .. controls (260,37.79) and (266.79,31) .. (275.17,31) .. controls (283.54,31) and (290.33,37.79) .. (290.33,46.17) .. controls (290.33,54.54) and (283.54,61.33) .. (275.17,61.33) .. controls (266.79,61.33) and (260,54.54) .. (260,46.17) -- cycle ;
+%Shape: Circle [id:dp36091134018047866] 
+\draw   (50,196.17) .. controls (50,187.79) and (56.79,181) .. (65.17,181) .. controls (73.54,181) and (80.33,187.79) .. (80.33,196.17) .. controls (80.33,204.54) and (73.54,211.33) .. (65.17,211.33) .. controls (56.79,211.33) and (50,204.54) .. (50,196.17) -- cycle ;
+%Shape: Circle [id:dp26547242504547564] 
+\draw   (260,196.17) .. controls (260,187.79) and (266.79,181) .. (275.17,181) .. controls (283.54,181) and (290.33,187.79) .. (290.33,196.17) .. controls (290.33,204.54) and (283.54,211.33) .. (275.17,211.33) .. controls (266.79,211.33) and (260,204.54) .. (260,196.17) -- cycle ;
+%Straight Lines [id:da48868806873588766] 
+\draw    (79.33,45.17) -- (260,46.17) ;
+\draw [shift={(260,46.17)}, rotate = 45.32] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-10.06,0) -- (10.06,0)(0,10.06) -- (0,-10.06)   ;
+%Straight Lines [id:da8216463620055106] 
+\draw    (79.33,195.17) -- (260,196.17) ;
+\draw [shift={(79.33,195.17)}, rotate = 45.32] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-10.06,0) -- (10.06,0)(0,10.06) -- (0,-10.06)   ;
+%Straight Lines [id:da631299106762842] 
+\draw    (64.17,60.33) -- (65.17,181) ;
+\draw [shift={(64.17,60.33)}, rotate = 134.53] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-10.06,0) -- (10.06,0)(0,10.06) -- (0,-10.06)   ;
+%Straight Lines [id:da3095212426358167] 
+\draw    (275.17,61.33) -- (275.17,181) ;
+\draw [shift={(275.17,181)}, rotate = 135] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-10.06,0) -- (10.06,0)(0,10.06) -- (0,-10.06)   ;
+%Curve Lines [id:da8159127726210385] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (64.17,30) .. controls (109.64,9.31) and (236.45,20.65) .. (273.54,30.55) ;
+\draw [shift={(275.17,31)}, rotate = 196.02] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da5073314640500317] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (290.33,46.17) .. controls (311.23,75.52) and (330.14,114.28) .. (290.93,194.95) ;
+\draw [shift={(290.33,196.17)}, rotate = 287.61] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Straight Lines [id:da7009246458462342] 
+\draw    (74.33,55.67) -- (264.33,185.67) ;
+%Straight Lines [id:da2836361332991506] 
+\draw    (76.33,185.67) -- (264.33,57.67) ;
+%Curve Lines [id:da503102123784646] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (80.33,46.17) .. controls (101.23,75.52) and (125.09,115.27) .. (81,194.96) ;
+\draw [shift={(80.33,196.17)}, rotate = 299.21] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da6787239467505795] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (275.17,211.33) .. controls (232.55,231.56) and (159.07,227.71) .. (66.56,211.58) ;
+\draw [shift={(65.17,211.33)}, rotate = 8.36] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da8127205653016016] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (50,196.17) .. controls (11.72,116.47) and (24.08,98.03) .. (48.26,46.73) ;
+\draw [shift={(49,45.17)}, rotate = 115.34] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da8494518064931584] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (275.17,61.33) .. controls (192.17,103.24) and (108.03,83.08) .. (65.44,61) ;
+\draw [shift={(64.17,60.33)}, rotate = 24.49] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da33965959095318543] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (260,196.17) .. controls (246.4,129) and (232.47,115.8) .. (259.59,47.2) ;
+\draw [shift={(260,46.17)}, rotate = 108.42] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da04559277548076479] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (65.17,181) .. controls (125.72,163.84) and (221.4,163.67) .. (273.6,180.49) ;
+\draw [shift={(275.17,181)}, rotate = 193] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da14772206294300405] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (74.33,55.67) .. controls (95.33,95.67) and (114.33,203.67) .. (264.33,185.67) ;
+\draw [shift={(264.33,185.67)}, rotate = 185.01] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+%Curve Lines [id:da742517217704517] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (264.33,185.67) .. controls (243.44,111.04) and (164.13,64.14) .. (75.67,55.79) ;
+\draw [shift={(74.33,55.67)}, rotate = 9.48] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (16.8,-4.2) -- (0,0) -- (16.8,4.2) -- cycle    ;
+
+% Text Node
+\draw (60,189) node [anchor=north west][inner sep=0.75pt]   [align=left] {1};
+% Text Node
+\draw (59,37) node [anchor=north west][inner sep=0.75pt]   [align=left] {2};
+% Text Node
+\draw (271,38) node [anchor=north west][inner sep=0.75pt]   [align=left] {3};
+% Text Node
+\draw (270.33,188.67) node [anchor=north west][inner sep=0.75pt]   [align=left] {4};
+\end{tikzpicture}
+\\\\\\
+1 \rightarrow 2 \rightarrow 3 \rightarrow 4 \rightarrow 1 \rightarrow 4 \rightarrow 2 \rightarrow 4 \rightarrow 3 \rightarrow 2 \rightarrow 1
+
+\setcounter{page}{5}
+\end{document}

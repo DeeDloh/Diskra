@@ -1,0 +1,173 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage[russian]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usetikzlibrary{graphs, babel, quotes, calc}
+
+
+\title{Пятая задача}
+\author{Векнков К. С. -- М8О-105Б-23 -- 7 вариант}
+\date{Май, 2024}
+
+\begin{document}
+\setcounter{page}{12}
+\maketitle
+
+\section*{Условие}
+ Найти остовное дерево с минимальной суммой длин входящих в него ребер.
+
+\section*{Дано}
+\begin{center}
+    \begin{tikzpicture}[circ/.style={circle, draw, fill=black}]
+        \path[nodes={circ}]
+            (0, 0) node(1)  {}
+            (0, 2) node(2)  {}
+            (0, 4) node(3)  {}
+            (2, 0) node(4)  {}
+            (2, 2) node(5)  {}
+            (2, 4) node(6)  {}
+            (4, 0) node(7)  {}
+            (4, 2) node(8)  {}
+            (4, 4) node(9)  {}
+            (6, 0) node(10) {}
+            (6, 2) node(11) {}
+            (6, 4) node(12) {}
+        ;
+        \draw[nodes={auto}]
+            (1)  -- node{5} (2)  -- node{6} (3)
+            (4)  -- node{5} (5)  -- node{5} (6)
+            (7)  -- node{5} (8)  -- node{5} (9)
+            (10) -- node{2} (11) -- node{5} (12)
+
+            (3) -- node{3} (6) -- node{7} (9) -- node{3} (12)
+            (2) -- node{4} (5) -- node{6} (8) -- node{5} (11)
+            (1) -- node{2} (4) -- node{1} (7) -- node{4} (10)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\section*{Решение}
+\subsection*{По Алгоритму Прима}
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da3587337483685016] 
+\draw    (100.14,60.21) -- (99.93,200.07) ;
+\draw [shift={(99.93,200.07)}, rotate = 135.09] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(100.04,130.14)}, rotate = 135.09] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(100.14,60.21)}, rotate = 135.09] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+%Straight Lines [id:da25066207563543585] 
+\draw    (170.14,60.36) -- (169.84,200.1) ;
+\draw [shift={(169.84,200.1)}, rotate = 135.12] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(169.99,130.23)}, rotate = 135.12] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(170.14,60.36)}, rotate = 135.12] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+%Straight Lines [id:da8227990248250039] 
+\draw    (240.29,60.21) -- (240.21,200.1) ;
+\draw [shift={(240.21,200.1)}, rotate = 135.03] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(240.25,130.16)}, rotate = 135.03] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(240.29,60.21)}, rotate = 135.03] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+%Straight Lines [id:da7618818688623332] 
+\draw    (100.14,60.21) -- (240.29,60.21) ;
+%Straight Lines [id:da43204856509377176] 
+\draw    (100.11,130.16) -- (240.25,130.16) ;
+%Straight Lines [id:da49077355496227404] 
+\draw    (99.93,200.07) -- (240.07,200.07) ;
+%Straight Lines [id:da6412714357758393] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (240.32,130.17) -- (240.21,200.1) ;
+%Straight Lines [id:da6978930548339368] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (240.29,60.21) -- (240.18,130.14) ;
+%Straight Lines [id:da8933352457702577] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (169.84,200.1) -- (99.93,200.07) ;
+%Straight Lines [id:da6910495406675838] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (240.21,200.1) -- (169.84,200.1) ;
+%Straight Lines [id:da23724998080509208] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (240.55,130.16) -- (170.18,130.16) ;
+%Straight Lines [id:da1293723057247662] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (240.59,60.21) -- (170.21,60.21) ;
+%Straight Lines [id:da5317295358356837] 
+\draw    (29.95,200.14) -- (99.93,200.07) ;
+%Straight Lines [id:da04574342650042884] 
+\draw    (30.06,130.21) -- (100.04,130.14) ;
+%Straight Lines [id:da5221420576511435] 
+\draw    (30.17,60.29) -- (100.14,60.21) ;
+%Straight Lines [id:da05126474313988738] 
+\draw    (30.17,60.29) -- (29.95,200.14) ;
+\draw [shift={(29.95,200.14)}, rotate = 135.09] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(30.06,130.21)}, rotate = 135.09] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+\draw [shift={(30.17,60.29)}, rotate = 135.09] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (-5.59,0) -- (5.59,0)(0,5.59) -- (0,-5.59)   ;
+%Straight Lines [id:da20376497639861446] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (99.93,200.07) -- (29.56,200.07) ;
+%Straight Lines [id:da461996318075216] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (100.43,130.21) -- (30.06,130.21) ;
+%Straight Lines [id:da17308627919443764] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (100.54,60.29) -- (30.17,60.29) ;
+%Straight Lines [id:da4069501482921025] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (29.95,200.14) -- (30.06,130.21) ;
+%Straight Lines [id:da733658533549248] 
+\draw [color={rgb, 255:red, 45; green, 173; blue, 18 }  ,draw opacity=1 ]   (100.04,130.14) -- (100.14,60.21) ;
+
+% Text Node
+\draw (31.33,157.73) node [anchor=north west][inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (101.36,157.73) node [anchor=north west][inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (171.67,157.73) node [anchor=north west][inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (101.64,87.35) node [anchor=north west][inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (171.64,87.53) node [anchor=north west][inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (241.64,87.16) node [anchor=north west][inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (200.64,132.44) node [anchor=north west][inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (7.88,156.98) node [anchor=north west][inner sep=0.75pt]    {$( 8)$};
+% Text Node
+\draw (60.97,202.04) node [anchor=north west][inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (130.61,202.22) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (201.09,202.22) node [anchor=north west][inner sep=0.75pt]    {$4$};
+% Text Node
+\draw (240.82,157.34) node [anchor=north west][inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (201.27,62.44) node [anchor=north west][inner sep=0.75pt]    {$3$};
+% Text Node
+\draw (130.61,62.26) node [anchor=north west][inner sep=0.75pt]    {$7$};
+% Text Node
+\draw (60.33,62.44) node [anchor=north west][inner sep=0.75pt]    {$3$};
+% Text Node
+\draw (61.15,132.62) node [anchor=north west][inner sep=0.75pt]    {$4$};
+% Text Node
+\draw (31.15,87.35) node [anchor=north west][inner sep=0.75pt]    {$6$};
+% Text Node
+\draw (55.64,181.26) node [anchor=north west][inner sep=0.75pt]    {$( 1)$};
+% Text Node
+\draw (125,181.26) node [anchor=north west][inner sep=0.75pt]    {$( 2)$};
+% Text Node
+\draw (196,182.55) node [anchor=north west][inner sep=0.75pt]    {$( 3)$};
+% Text Node
+\draw (251.33,157.32) node [anchor=north west][inner sep=0.75pt]    {$( 4)$};
+% Text Node
+\draw (251.33,87.78) node [anchor=north west][inner sep=0.75pt]    {$( 5)$};
+% Text Node
+\draw (195.11,41.78) node [anchor=north west][inner sep=0.75pt]    {$( 6)$};
+% Text Node
+\draw (196,111.78) node [anchor=north west][inner sep=0.75pt]    {$( 7)$};
+% Text Node
+\draw (56,111.22) node [anchor=north west][inner sep=0.75pt]    {$( 9)$};
+% Text Node
+\draw (110.89,87.56) node [anchor=north west][inner sep=0.75pt]    {$( 10)$};
+% Text Node
+\draw (50.22,41.33) node [anchor=north west][inner sep=0.75pt]    {$( 11)$};
+\end{tikzpicture}\\\\
+
+$\sum = 2 + 1 + 4 + 2 + 5 + 3 + 5 + 5 + 4 + 5 + 3 = 39$
+\end{document}

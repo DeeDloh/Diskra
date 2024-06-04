@@ -1,0 +1,307 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[russian]{babel}
+\usepackage{tikz}
+
+\title{Курсовая работа по дискретной математике\\Первая задача}
+\author{Векнков К. С. -- М8О-105Б-23 -- 7 вариант}
+\date{Май, 2024}
+
+\begin{document}
+
+\maketitle
+\section*{Дано}
+Матрица смежности орграфа
+$$
+A =
+\begin{pmatrix}
+  0 && 1 && 1 && 1 \\
+  1 && 0 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 0
+\end{pmatrix}
+$$
+
+\section*{Найти}
+\begin{enumerate}
+\item Матрицу односторонней связности (2 способами)
+\item Матрицу сильной связности
+\item Компоненты сильной связности 
+\item Матрицу контуров
+\item Изобразить
+\end{enumerate}
+
+\section*{Решение}
+Найдем матрицу односторонней связности при помощи итерационного алгоритма:
+
+\subsection*{1.}
+
+1 Способ 
+$$
+  T^{0} = E \lor A =
+  \begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 1
+  \end{pmatrix}
+$$
+
+$
+t^{(k)}_{ij} = t^{(k-1)}_{ij} \lor (t^{(k-1)}_{ik} \& t^{(k-1)}_{kj})
+$
+
+$T^{1} =
+  \begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+  \end{pmatrix}
+$
+  \begin{enumerate}[label=]
+  \item $t^{1}_{23} = 0 \lor (1 \& 1) = 1$
+  \item $t^{1}_{24} = 0 \lor (1 \& 1) = 1$
+  \item $t^{1}_{34} = 0 \lor (1 \& 1) = 1$
+  \item $t^{1}_{43} = 0 \lor (1 \& 1) = 1$
+  \end{enumerate}
+2 Способ
+\\\\
+$
+T = E \lor A^{1}_{*} \lor A^{2}_{*} \lor A^{3}_{*}
+$
+\\\\
+$A^{k}_{*}$ - булевая матрицы(любое число > 0 из $A^{k}$ заменяются на 1)\\
+\\
+$
+A^{1}_{*} = A\\
+$
+
+$
+A^{2} = A \cdot A = 
+\begin{pmatrix}
+  0 && 1 && 1 && 1 \\
+  1 && 0 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 0
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+  0 && 1 && 1 && 1 \\
+  1 && 0 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+  3 && 2 && 1 && 0 \\
+  0 && 1 && 1 && 1 \\
+  2 && 2 && 2 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+$
+\\\\\\
+$
+A^{2}_{*} = 
+\begin{pmatrix}
+  1 && 1 && 1 && 0 \\
+  0 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+$
+\\\\\\
+$
+A^{3} = A^{2}_{*} \cdot A^{1}_{*} = 
+\begin{pmatrix}
+  1 && 1 && 1 && 0 \\
+  0 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+  0 && 1 && 1 && 1 \\
+  1 && 0 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+  3 && 2 && 2 && 1 \\
+  3 && 2 && 1 && 0 \\
+  3 && 3 && 2 && 1 \\
+  3 && 3 && 2 && 1
+\end{pmatrix}
+$
+\\\\\\
+$
+A^{3}_{*} = 
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+$
+\newpage
+$
+T = E \lor A^{1}_{*} \lor A^{2}_{*} \lor A^{3}_{*} = 
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+$
+\\\\\\
+Ответ:
+$
+T =
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+$
+
+\subsection*{2.}
+$\overline{S} = T \& T^{T} =
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+\&
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+$
+\\\\\\
+Ответ:
+$
+\overline{S} =
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+$
+
+\subsection*{3.}
+Ответ:
+$
+V_1 = \{V_1, V_2, V_3, V_4\}
+$
+
+\newpage
+\subsection*{4.}
+Матрица контуров вычисляется как:
+$
+\overline{S} \& A
+=
+\begin{pmatrix}
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1
+\end{pmatrix}
+\& 
+\begin{pmatrix}
+  0 && 1 && 1 && 1 \\
+  1 && 0 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+  0 && 1 && 1 && 1 \\
+  1 && 0 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 0
+\end{pmatrix}
+$
+
+Ответ:
+$
+\begin{pmatrix}
+  0 && 1 && 1 && 1 \\
+  1 && 0 && 0 && 0 \\
+  1 && 1 && 1 && 0 \\
+  1 && 1 && 0 && 0
+\end{pmatrix}
+$
+
+\subsection*{5.}
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp27318873662129617] 
+\draw   (116,209) .. controls (116,199.61) and (123.61,192) .. (133,192) .. controls (142.39,192) and (150,199.61) .. (150,209) .. controls (150,218.39) and (142.39,226) .. (133,226) .. controls (123.61,226) and (116,218.39) .. (116,209) -- cycle ;
+%Shape: Circle [id:dp9549115709724951] 
+\draw   (213.99,43.45) .. controls (213.75,52.83) and (205.94,60.24) .. (196.55,59.99) .. controls (187.17,59.75) and (179.76,51.94) .. (180.01,42.55) .. controls (180.25,33.17) and (188.06,25.76) .. (197.45,26.01) .. controls (206.83,26.25) and (214.24,34.06) .. (213.99,43.45) -- cycle ;
+%Shape: Circle [id:dp11815449729363525] 
+\draw   (296,150) .. controls (296,140.61) and (303.61,133) .. (313,133) .. controls (322.39,133) and (330,140.61) .. (330,150) .. controls (330,159.39) and (322.39,167) .. (313,167) .. controls (303.61,167) and (296,159.39) .. (296,150) -- cycle ;
+%Shape: Circle [id:dp9682265900062741] 
+\draw   (399,66) .. controls (399,56.61) and (406.61,49) .. (416,49) .. controls (425.39,49) and (433,56.61) .. (433,66) .. controls (433,75.39) and (425.39,83) .. (416,83) .. controls (406.61,83) and (399,75.39) .. (399,66) -- cycle ;
+%Curve Lines [id:da0016757263159317137] 
+\draw    (148.33,199) .. controls (215.31,156.64) and (202.73,101.68) .. (196.82,61.81) ;
+\draw [shift={(196.55,59.99)}, rotate = 81.78] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da8486078058184674] 
+\draw    (182.33,37) .. controls (122.93,39.97) and (117.44,137.03) .. (124.77,191.37) ;
+\draw [shift={(125,193)}, rotate = 261.92] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da1017272002844305] 
+\draw    (213.99,43.45) .. controls (241.71,71.17) and (365.82,111.19) .. (407.11,82.88) ;
+\draw [shift={(408.33,82)}, rotate = 157.22] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da7480520074478472] 
+\draw    (404.33,51) .. controls (345.56,10.61) and (249.6,2.79) .. (212.97,26.88) ;
+\draw [shift={(211.33,28)}, rotate = 324.25] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da7195032837670938] 
+\draw    (306.33,166) .. controls (277.62,211.54) and (198.6,212.98) .. (151.42,209.12) ;
+\draw [shift={(150,209)}, rotate = 4.86] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da7028086070403923] 
+\draw    (426.33,80) .. controls (422.35,207.36) and (239.18,274.33) .. (134.57,226.73) ;
+\draw [shift={(133,226)}, rotate = 25.16] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da43546194951011974] 
+\draw    (313,133) .. controls (288.7,82.76) and (249.53,68.43) .. (214.91,52.72) ;
+\draw [shift={(213.33,52)}, rotate = 24.57] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da38073291506076123] 
+\draw    (205.33,58) .. controls (216.28,97.8) and (221.28,134.63) .. (294.89,149.77) ;
+\draw [shift={(296,150)}, rotate = 191.36] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (21.86,-6.58) .. controls (13.9,-2.79) and (6.61,-0.6) .. (0,0) .. controls (6.61,0.6) and (13.9,2.79) .. (21.86,6.58)   ;
+%Curve Lines [id:da09561959394342145] 
+\draw    (424,49) .. controls (463.8,19.15) and (504.59,39.79) .. (434.07,65.61) ;
+\draw [shift={(433,66)}, rotate = 340.14] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (188.33,35) node [anchor=north west][inner sep=0.75pt]   [align=left] {V1};
+% Text Node
+\draw (123.33,201) node [anchor=north west][inner sep=0.75pt]   [align=left] {V2};
+% Text Node
+\draw (407.33,58) node [anchor=north west][inner sep=0.75pt]   [align=left] {V3};
+% Text Node
+\draw (304.33,142) node [anchor=north west][inner sep=0.75pt]   [align=left] {V4};
+
+
+\end{tikzpicture}
+\newpage
+
+
+\end{document}

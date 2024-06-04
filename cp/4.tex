@@ -1,0 +1,114 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage[russian]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+\newcommand\tm[1]{\tikzmark{#1}}
+\newcommand\ld[2]{$\lambda^{(#1)}_{#2}$}
+
+\setcounter{MaxMatrixCols}{20}
+
+
+\title{Четвертая задача}
+\author{Векнков К. С. -- М8О-105Б-23 -- 7 вариант}
+\date{Май, 2024}
+
+\begin{document}
+\setcounter{page}{10}
+\maketitle
+\section*{Условие}
+Используя алгоритм Форда, найти минимальные пути из первой вершины во все
+достижимые вершины в нагруженном графе, заданном матрицей длин дуг.
+\section*{Дано}
+Матрица длин дуг $A$:
+$$
+\begin{pmatrix}
+    \infty && 6      && 2       && 8      && \infty && \infty && \infty \\
+    \infty && \infty && \infty  && 5      && 3      && \infty && \infty \\
+    9      && \infty && \infty  && 6      && \infty && 3      && \infty \\
+    \infty && 5      && 6       && \infty && 1      && 2      && 2      \\
+    \infty && \infty && \infty  && 1      && \infty && \infty && 9      \\
+    \infty && \infty && \infty  && 2      && \infty && \infty && 4      \\
+    \infty && 3      && \infty  && \infty && 6      && 7      && \infty \\
+    
+\end{pmatrix}
+$$
+
+\section*{Решение}
+\begin{tabular}{l|lllllll|llllll}
+             & $V1$     & $V2$     & $V3$     & $V4$     & $V5$     & $V6$     & $V7$     & \ld{0}{i}& \ld{1}{i}& \ld{2}{i}& \ld{3}{i}& \ld{4}{i}& \ld{5}{i}\\
+    \midrule
+    $V1$     & $\infty$ & 6        & 2         & 8        & $\infty$ & $\infty$ & $\infty$
+             & 0\tm{a}  & 0        & 0         & 0        & 0        & 0\\
+    $V2$     & $\infty$ & $\infty$ & $\infty$  & 5        & 3        & $\infty$ & $\infty$
+             & $\infty$ & 6\tm{b}  & 6         & 6        & 6        & 6\\
+    $V3$     & 9        & $\infty$ & $\infty$  & 6        & $\infty$ & 3        & $\infty$        
+             & $\infty$ & 2\tm{c}  & 2         & 2        & 2        & 2\\
+    $V4$     & $\infty$ & 5        & 6         & $\infty$ & 1        & 2        & 2        
+             & $\infty$ & 8        & 8         & 7\tm{e}  & 7        & 7\\
+    $V5$     & $\infty$ & $\infty$ & $\infty$  & 1        & $\infty$ & $\infty$ & 9               
+             & $\infty$ & $\infty$ & 9         & 9        & 8\tm{g}  & 8\\
+    $V6$     & $\infty$ & $\infty$ & $\infty$  & 2        & $\infty$ & $\infty$ & 4        
+             & $\infty$ & $\infty$ & 5\tm{d}   & 5        & 5        & 5\\
+    $V7$     & $\infty$ & $\infty$ & $\infty$  & $\infty$ & 6        & 7        & $\infty$
+             & $\infty$ & $\infty$ & 10        & 9\tm{f}  & 9        & 9\\
+\end{tabular}
+
+\begin{tikzpicture}[overlay, remember picture, transform canvas={yshift=.25\baselineskip}]
+    \draw[->] ([xshift=8pt]pic cs:a) -- ([xshift=-8pt]pic cs:b);
+    \draw[->] ([xshift=8pt]pic cs:a) -- ([xshift=-8pt]pic cs:c);
+    \draw[->] ([xshift=8pt]pic cs:c) -- ([xshift=-8pt]pic cs:d);
+    \draw[->] ([xshift=8pt]pic cs:d) -- ([xshift=-8pt]pic cs:e);
+    \draw[->] ([xshift=8pt]pic cs:d) -- ([xshift=-8pt]pic cs:f);
+    \draw[->] ([xshift=8pt]pic cs:e) -- ([xshift=-8pt]pic cs:g);
+\end{tikzpicture}
+
+\newpage
+\\\\\\
+\begin{enumerate}
+    \item Из $v_1$ в $v_2$: $v_1 - v_2$, длина равна 6
+    \begin{enumerate}
+        \item \ld{0}{1}$+ c_{12} = 0 + 6 =$\ld{1}{2}
+    \end{enumerate}
+    
+    \item Из $v_1$ в $v_3$: $v_1 - v_3$, длина равна 2
+    \begin{enumerate}
+        \item \ld{0}{1}$+ c_{13} = 0 + 2 = 2 =$\ld{1}{3}
+    \end{enumerate}
+    
+    \item Из $v_1$ в $v_4$: $v_1 - v_3 - v_6 - v_4$, длина равна 7
+    \begin{enumerate}
+        \item \ld{2}{6}$+ c_{64} = 5 + 2 = 7 =$\ld{3}{4}
+        \item \ld{1}{3}$+ c_{36} = 2 + 3 = 5 =$\ld{2}{6}
+        \item \ld{0}{1}$+ c_{13} = 0 + 2 =$\ld{1}{3}
+    \end{enumerate}
+
+    \item Из $v_1$ в $v_5$: $v_1 - v_3 - v_6 - v_4 - v_5$, длина равна 8
+    \begin{enumerate}
+        \item \ld{3}{4}$+ c_{45} = 7 + 1 =$\ld{4}{5}
+        \item \ld{2}{6}$+ c_{64} = 5 + 2 =$\ld{3}{4}
+        \item \ld{1}{3}$+ c_{36} = 2 + 3 =$\ld{2}{6}
+        \item \ld{0}{1}$+ c_{13} = 0 + 2 =$\ld{1}{3}
+    \end{enumerate}
+
+    \item Из $v_1$ в $v_6$: $v_1 - v_3 - v_6$, длина равна 5
+    \begin{enumerate}
+        \item \ld{1}{3}$+ c_{36} = 2 + 3 =$\ld{2}{6}
+        \item \ld{0}{1}$+ c_{13} = 0 + 2 =$\ld{1}{3}
+    \end{enumerate}
+
+    \item Из $v_1$ в $v_7$: $v_1 - v_3 - v_6 - v_7$, длина равна 9
+    \begin{enumerate}
+        \item \ld{2}{6}$+ c_{67} = 5 + 4 =$\ld{3}{7}
+        \item \ld{1}{3}$+ c_{36} = 2 + 3 =$\ld{2}{6}
+        \item \ld{0}{1}$+ c_{13} = 0 + 2 =$\ld{1}{3}
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{document}

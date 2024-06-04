@@ -1,0 +1,471 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage[russian]{babel}
+\usepackage[margin=2.5cm]{geometry}
+
+\setcounter{MaxMatrixCols}{20}
+\usepackage{tikz}
+
+
+\title{Третья задача}
+\author{Векнков К. С. -- М8О-105Б-23 -- 7 вариант}
+\date{Май, 2024}
+
+\begin{document}
+\setcounter{page}{6}
+\maketitle
+\section*{Условие}
+Используя алгоритм “фронта волны”, найти все минимальные пути из первой вершины в
+последнюю орграфа, заданного матрицей смежности
+\section*{Дано}
+Матрица смежности $A$ орграфа:
+$$
+\begin{pmatrix}
+  % 1    2    3    4    5    6    7
+    0 && 0 && 1 && 0 && 0 && 1 && 0 && 0\\ % 1
+    1 && 0 && 1 && 1 && 1 && 1 && 1 && 1\\ % 2
+    1 && 0 && 0 && 0 && 1 && 1 && 1 && 0\\ % 3
+    1 && 1 && 1 && 0 && 1 && 0 && 0 && 0\\ % 4
+    1 && 0 && 1 && 1 && 0 && 0 && 1 && 0\\ % 5
+    0 && 0 && 1 && 0 && 1 && 0 && 1 && 0\\ % 6
+    1 && 0 && 1 && 1 && 1 && 1 && 1 && 0\\ % 7
+    1 && 0 && 1 && 1 && 0 && 1 && 1 && 0\\ % 7
+
+\end{pmatrix}
+$$
+
+
+\newpage
+\begin{center}
+
+\begin{table}[!h]
+        \centering
+        
+\begin{tabular}{|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|}
+\hline 
+ \begin{center}
+\end{center}
+ & \begin{center}
+V1
+\end{center}
+ & \begin{center}
+V2
+\end{center}
+ & \begin{center}
+V3
+\end{center}
+ & \begin{center}
+V4
+\end{center}
+ & \begin{center}
+V5
+\end{center}
+ & \begin{center}
+V6
+\end{center}
+ & \begin{center}
+V7
+\end{center}
+ & \begin{center}
+V8
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V2
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V3
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V4
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V5
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V6
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V7
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ \\
+\hline 
+ \begin{center}
+V8
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ & \begin{center}
+1
+\end{center}
+ & \begin{center}
+0
+\end{center}
+ \\
+ \hline
+\end{tabular}
+        
+        \end{table}
+\end{center}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,379); %set diagram left start at 0, and has height of 379
+
+%Shape: Circle [id:dp12881115015146483] 
+\draw   (106,15.55) .. controls (106,7.51) and (112.51,1) .. (120.55,1) .. controls (128.58,1) and (135.09,7.51) .. (135.09,15.55) .. controls (135.09,23.58) and (128.58,30.09) .. (120.55,30.09) .. controls (112.51,30.09) and (106,23.58) .. (106,15.55) -- cycle ;
+%Shape: Circle [id:dp22696651934948053] 
+\draw   (11,75.55) .. controls (11,67.51) and (17.51,61) .. (25.55,61) .. controls (33.58,61) and (40.09,67.51) .. (40.09,75.55) .. controls (40.09,83.58) and (33.58,90.09) .. (25.55,90.09) .. controls (17.51,90.09) and (11,83.58) .. (11,75.55) -- cycle ;
+%Shape: Circle [id:dp11251032640354697] 
+\draw   (201,74.55) .. controls (201,66.51) and (207.51,60) .. (215.55,60) .. controls (223.58,60) and (230.09,66.51) .. (230.09,74.55) .. controls (230.09,82.58) and (223.58,89.09) .. (215.55,89.09) .. controls (207.51,89.09) and (201,82.58) .. (201,74.55) -- cycle ;
+%Shape: Circle [id:dp98561797781149] 
+\draw   (11,150.55) .. controls (11,142.51) and (17.51,136) .. (25.55,136) .. controls (33.58,136) and (40.09,142.51) .. (40.09,150.55) .. controls (40.09,158.58) and (33.58,165.09) .. (25.55,165.09) .. controls (17.51,165.09) and (11,158.58) .. (11,150.55) -- cycle ;
+%Shape: Circle [id:dp7401245077575385] 
+\draw   (201,150.55) .. controls (201,142.51) and (207.51,136) .. (215.55,136) .. controls (223.58,136) and (230.09,142.51) .. (230.09,150.55) .. controls (230.09,158.58) and (223.58,165.09) .. (215.55,165.09) .. controls (207.51,165.09) and (201,158.58) .. (201,150.55) -- cycle ;
+%Shape: Circle [id:dp004039317429723521] 
+\draw   (106,221.55) .. controls (106,213.51) and (112.51,207) .. (120.55,207) .. controls (128.58,207) and (135.09,213.51) .. (135.09,221.55) .. controls (135.09,229.58) and (128.58,236.09) .. (120.55,236.09) .. controls (112.51,236.09) and (106,229.58) .. (106,221.55) -- cycle ;
+%Shape: Circle [id:dp46378363435024395] 
+\draw   (105,293.55) .. controls (105,285.51) and (111.51,279) .. (119.55,279) .. controls (127.58,279) and (134.09,285.51) .. (134.09,293.55) .. controls (134.09,301.58) and (127.58,308.09) .. (119.55,308.09) .. controls (111.51,308.09) and (105,301.58) .. (105,293.55) -- cycle ;
+%Shape: Circle [id:dp4091536343565747] 
+\draw   (105,356.55) .. controls (105,348.51) and (111.51,342) .. (119.55,342) .. controls (127.58,342) and (134.09,348.51) .. (134.09,356.55) .. controls (134.09,364.58) and (127.58,371.09) .. (119.55,371.09) .. controls (111.51,371.09) and (105,364.58) .. (105,356.55) -- cycle ;
+%Straight Lines [id:da9260703265139381] 
+\draw    (106,15.55) -- (27.29,60.02) ;
+\draw [shift={(25.55,61)}, rotate = 330.54] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da5029563929078469] 
+\draw    (135.09,15.55) -- (213.8,59.03) ;
+\draw [shift={(215.55,60)}, rotate = 208.92] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da6965178100471874] 
+\draw    (201,74.55) -- (41.9,149.69) ;
+\draw [shift={(40.09,150.55)}, rotate = 334.72] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da8928613467681674] 
+\draw    (215.55,89.09) -- (215.55,134) ;
+\draw [shift={(215.55,136)}, rotate = 270] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da48189213010676535] 
+\draw    (40.09,75.55) -- (199.19,149.7) ;
+\draw [shift={(201,150.55)}, rotate = 204.99] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da932714038080696] 
+\draw    (25.55,90.09) -- (25.55,134) ;
+\draw [shift={(25.55,136)}, rotate = 270] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da1406709782756448] 
+\draw    (25.55,165.09) -- (104.36,220.4) ;
+\draw [shift={(106,221.55)}, rotate = 215.06] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da2431439109997413] 
+\draw    (215.55,165.09) -- (136.73,220.4) ;
+\draw [shift={(135.09,221.55)}, rotate = 324.94] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da42937248565244657] 
+\draw    (120.55,236.09) -- (119.59,277) ;
+\draw [shift={(119.55,279)}, rotate = 271.34] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da2679501880443016] 
+\draw    (119.55,308.09) -- (119.55,340) ;
+\draw [shift={(119.55,342)}, rotate = 270] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (14.4,-3.6) -- (0,0) -- (14.4,3.6) -- cycle    ;
+%Straight Lines [id:da6505299654995296] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (1.33,41) -- (239.33,41) ;
+%Straight Lines [id:da30191897477759744] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (1.55,112.55) -- (239.55,112.55) ;
+%Straight Lines [id:da8565492871342613] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (0.33,190) -- (238.33,190) ;
+%Straight Lines [id:da6761291881404818] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (1.33,250) -- (239.33,250) ;
+%Straight Lines [id:da15446207002985712] 
+\draw  [dash pattern={on 0.84pt off 2.51pt}]  (1.55,321.05) -- (239.55,321.05) ;
+%Shape: Rectangle [id:dp0018403216664912847] 
+\draw   (0.5,0.5) -- (480,0.5) -- (480,378.5) -- (0.5,378.5) -- cycle ;
+%Shape: Rectangle [id:dp22461671870443434] 
+\draw   (241,0.25) -- (480,0.25) -- (480,378.5) -- (241,378.5) -- cycle ;
+%Straight Lines [id:da2994219410746579] 
+\draw    (239.33,41) -- (480,41) ;
+%Straight Lines [id:da5353122198152749] 
+\draw    (239.55,112.55) -- (480.21,112.55) ;
+%Straight Lines [id:da4006660957350354] 
+\draw    (238.33,190) -- (480.5,190) ;
+%Straight Lines [id:da6080797243114371] 
+\draw    (239.33,250) -- (480,250) ;
+%Straight Lines [id:da5364147247179782] 
+\draw    (239.55,321.05) -- (480.21,321.05) ;
+%Straight Lines [id:da894863209147323] 
+\draw    (399.5,-0.5) -- (401,378.5) ;
+
+% Text Node
+\draw (111,7) node [anchor=north west][inner sep=0.75pt]   [align=left] {V1};
+% Text Node
+\draw (16,67) node [anchor=north west][inner sep=0.75pt]   [align=left] {V3};
+% Text Node
+\draw (206,66) node [anchor=north west][inner sep=0.75pt]   [align=left] {V6};
+% Text Node
+\draw (16,143) node [anchor=north west][inner sep=0.75pt]   [align=left] {V5};
+% Text Node
+\draw (207,141) node [anchor=north west][inner sep=0.75pt]   [align=left] {V7};
+% Text Node
+\draw (111,213) node [anchor=north west][inner sep=0.75pt]   [align=left] {V4};
+% Text Node
+\draw (110,285) node [anchor=north west][inner sep=0.75pt]   [align=left] {V2};
+% Text Node
+\draw (110,349) node [anchor=north west][inner sep=0.75pt]   [align=left] {V8};
+% Text Node
+\draw (421,12) node [anchor=north west][inner sep=0.75pt]   [align=left] {k=0};
+% Text Node
+\draw (421,63) node [anchor=north west][inner sep=0.75pt]   [align=left] {k=1};
+% Text Node
+\draw (421.5,142) node [anchor=north west][inner sep=0.75pt]   [align=left] {k=2};
+% Text Node
+\draw (420.5,211.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {k=3};
+% Text Node
+\draw (421,272.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {k=4};
+% Text Node
+\draw (421,342.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {k=5};
+% Text Node
+\draw (261.5,11) node [anchor=north west][inner sep=0.75pt]   [align=left] {$FW_0$=\{V1\}};
+% Text Node
+\draw (261,71) node [anchor=north west][inner sep=0.75pt]   [align=left] {$FW_1$=\{V3, V6\}};
+% Text Node
+\draw (262,141.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {$FW_2$=\{V5, V7\}};
+% Text Node
+\draw (261.5,211) node [anchor=north west][inner sep=0.75pt]   [align=left] {$FW_3$=\{V4\}};
+% Text Node
+\draw (262,272) node [anchor=north west][inner sep=0.75pt]   [align=left] {$FW_4$=\{V2\}};
+% Text Node
+\draw (261.5,341) node [anchor=north west][inner sep=0.75pt]   [align=left] {$FW_5$=\{V8\}};
+
+
+\end{tikzpicture}
+
+\newpage
+\subsection*{Обратный ход}
+\begin{align*}
+    \text{1.    } V_8\\
+    \text{2.    } FW_4 \cap F^{-1}V_8 &= 
+    \{V_2\} \cap \{V_2\} = \{V_2\} \\
+    \text{3.    } FW_3 \cap F^{-1}V_2 &= 
+    \{V_4\} \cap \{V_4\} = \{V_4\} \\
+    \text{4.    } FW_2 \cap F^{-1}V_4 &= 
+    \{V_5, V_7\} \cap \{V_2, V_5, V_7, V_8\} = \{V_5, V_7\} \\
+    \text{5.1.  } FW_1 \cap F^{-1}V_5 &= 
+    \{V_3, V_6\} \cap \{V_2, V_3, V_4, V_6, V_7\} = \{V_3, V_6\} \\
+    \text{5.1.  } FW_1 \cap F^{-1}V_7 &= 
+    \{V_3, V_6\} \cap \{V_2, V_3, V_5, V_6, V_7, V_8\} = \{V_3, V_6\} \\
+    \text{6.1.  } FW_0 \cap F^{-1}V_3 &= 
+    \{V_1\} \cap \{V_1, V_2, V_4, V_5, V_6, V_7, V_8\} = \{V_1\} \\
+    \text{6.2.  } FW_0 \cap F^{-1}V_6 &= 
+    \{V_1\} \cap \{V_1, V_2, V_3, V_7\} = \{V_1\} \\
+\end{align*}
+
+Кратчайших путей четыре:
+\begin{align*}
+    \text{1.    } V_1 \rightarrow V_3 \rightarrow V_5 \rightarrow V_4 \rightarrow V_2 \rightarrow V_8\\
+    \text{2.    } V_1 \rightarrow V_3 \rightarrow V_7 \rightarrow V_4 \rightarrow V_2 \rightarrow V_8\\
+    \text{3.    } V_1 \rightarrow V_6 \rightarrow V_5 \rightarrow V_4 \rightarrow V_2 \rightarrow V_8\\
+    \text{4.    } V_1 \rightarrow V_6 \rightarrow V_7 \rightarrow V_4 \rightarrow V_2 \rightarrow V_8\\
+\end{align*}
+\\\\\\
+Ответ: Минимальные пути из $V_1$ В $V_8$
+\begin{align*}
+    \text{1.    } V_1 V_3 V_5 V_4 V_2 V_8\\
+    \text{2.    } V_1 V_3 V_7 V_4 V_2 V_8\\
+    \text{3.    } V_1 V_6 V_5 V_4 V_2 V_8\\
+    \text{4.    } V_1 V_6 V_7 V_4 V_2 V_8\\
+\end{align*}
+\end{document}
